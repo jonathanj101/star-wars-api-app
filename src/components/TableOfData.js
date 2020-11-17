@@ -2,9 +2,19 @@ import { Table } from 'react-bootstrap'
 
 const TableData = (props) => {
     console.log(props)
-    const { people, birthDate, height, mass, planet, species } = props
-    console.log(props.state)
-
+    const peopleState = props.passingData.people
+    const looping = peopleState.map(characters => {
+        return (
+            <tr>
+                <td>{characters.name}</td>
+                <td>{characters.birth_year}</td>
+                <td>{characters.height}</td>
+                <td>{characters.mass}</td>
+                <td>{characters.homeworld}</td>
+                <td>{characters.species}</td>
+            </tr>
+        )
+    })
 
     return (
         <Table
@@ -23,15 +33,7 @@ const TableData = (props) => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{people}</td>
-                    <td>{birthDate}</td>
-                    <td>{height}</td>
-                    <td>{mass}</td>
-                    <td>{planet}</td>
-                    <td>{species}</td>
-                </tr>
-
+                {looping}
             </tbody>
         </Table>
     )
