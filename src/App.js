@@ -29,6 +29,7 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
+
     axios.get('https://swapi.dev/api/planets')
       .then(response => {
         response.data.results.map(e => {
@@ -42,6 +43,7 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
+
     axios.get('https://swapi.dev/api/species')
       .then(response => {
         response.data.results.map(e => {
@@ -55,6 +57,7 @@ class App extends Component {
       .catch(error => {
         console.log(error)
       })
+
     console.log(this.state)
   }
 
