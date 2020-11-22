@@ -1,17 +1,18 @@
 import { Table } from 'react-bootstrap'
 
 const TableData = (props) => {
-    console.log(props)
+    // console.log(props)
     const peopleState = props.passingData.people
     // const speciesState = props.passingData.species
     // const planetState = props.passingData.planet
-    const looping = peopleState.map(characters => {
+    const looping = peopleState.map((characters, num) => {
+        // console.log(characters, num)
         return (
-            <tr>
-                <td>{characters.name}</td>
-                <td>{characters.birth_year}</td>
-                <td>{characters.height}</td>
-                <td>{characters.mass}</td>
+            <tr key={num} >
+                <td>{characters.people.name}</td>
+                <td>{characters.people.birth_year}</td>
+                <td>{characters.people.height}</td>
+                <td>{characters.people.mass}</td>
                 <td>{characters.homeworld}</td>
                 <td>{characters.species}</td>
             </tr>
