@@ -35,10 +35,15 @@ class App extends Component {
         const characterHomeWorld = await axios.get(characterData.homeworld)
         // console.log(characterHomeWorld.data)
         const characterSpecies = await axios.get(characterData.species)
-        console.log(characterSpecies)
+        // console.log(characterSpecies)
+        // let isHuman = !characterData.species ? characterData.species = 'Human' : characterSpecies.data.name
+        let isHuman = !characterData.species ? characterSpecies.data.name = 'Human' : characterSpecies.data.name
+        console.log(isHuman)
+        console.log(characterData.species)
+
         const peopleState = this.state.people
         // peopleState.push({ characterData, characterHomeWorld, characterSpecies })
-        peopleState.push({ people: characterData, homeworld: characterHomeWorld.data.name, species: characterSpecies.data.results })
+        peopleState.push({ people: characterData, homeworld: characterHomeWorld.data.name, species: isHuman })
         this.setState({
           people: peopleState
         })
