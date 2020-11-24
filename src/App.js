@@ -10,40 +10,22 @@ class App extends Component {
     super();
     this.state = {
       people: [],
-      // planet: [],
-      // species: []
     }
   }
 
   async componentDidMount() {
-    // const peopleData = await axios.get('https://swapi.dev/api/people')
-    // console.log(peopleData.data.results)
-    // peopleData.data.results.map(characterData => {
-    //   // const homeWorld = await axios.get('https://swapi.dev/api/planets/')
-    //   const peopleState = this.state.people
-    //   peopleState.push(characterData)
-    //   // console.log(homeWorld)
-    //   this.setState({
-    //     people: peopleState
-    //   })
-    // })
     try {
       const peopleData = await axios.get('https://swapi.dev/api/people')
       peopleData.data.results.map(async characterData => {
-        // console.log(characterData)
-        // console.log(await characterData.homeworld, characterData)
         const characterHomeWorld = await axios.get(characterData.homeworld)
-        // console.log(characterHomeWorld.data)
         const characterSpecies = await axios.get(characterData.species)
-        // console.log(characterSpecies)
-        // let isHuman = !characterData.species ? characterData.species = 'Human' : characterSpecies.data.name
-        let isHuman = !characterData.species ? characterSpecies.data.name = 'Human' : characterSpecies.data.name
-        console.log(isHuman)
-        console.log(characterData.species)
-
+        let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
         const peopleState = this.state.people
-        // peopleState.push({ characterData, characterHomeWorld, characterSpecies })
-        peopleState.push({ people: characterData, homeworld: characterHomeWorld.data.name, species: isHuman })
+        peopleState.push({
+          people: characterData,
+          homeworld: characterHomeWorld.data.name,
+          species: isHuman
+        })
         this.setState({
           people: peopleState
         })
@@ -54,7 +36,6 @@ class App extends Component {
       console.log(err, 'not successful')
     }
 
-
     console.log(this.state)
   }
 
@@ -62,7 +43,7 @@ class App extends Component {
     return (
       <div className="App">
         <Search />
-        <TableData passingData={this.state} />
+        <TableData passingData={this.state.people} />
       </div>
     );
   }
