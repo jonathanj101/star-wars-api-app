@@ -2,7 +2,7 @@ import { Table } from 'react-bootstrap'
 
 const TableData = (props) => {
     // console.log(props)
-    const peopleState = props.passingData.people
+    const peopleState = props.passingData
     // const speciesState = props.passingData.species
     // const planetState = props.passingData.planet
     const looping = peopleState.map((characters, num) => {
