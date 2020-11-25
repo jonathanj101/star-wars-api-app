@@ -13,38 +13,38 @@ export const Pagination = (props) => {
         <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center pagination-lg">
                 <li className="page-item">
-                    <a
+                    <button
                         className="page-link rounded-circle "
                         href=""
                         aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span className="sr-only">Previous</span>
-                    </a>
+                    </button>
                 </li>
                 {array.map(number => {
                     return (
-                        <li
-                            className='page-item'
-                            key={number}>
-                            <a
-                                className='page-link rounded-circle'
-                                name={number}
-                                // href={`https://swapi.dev/api/people/?page=${number}`}
-                                onClick={handleChange}
-                            >
-                                {number}
-                            </a>
-                        </li>
+                        // <li
+                        //     className='page-item'
+                        //     key={number}>
+                        <button
+                            className='page-link rounded-circle'
+                            name={number}
+                            // href={`https://swapi.dev/api/people/?page=${number}`}
+                            onClick={handleChange}
+                        >
+                            {number}
+                        </button>
+                        // </li>
                     )
                 })}
                 <li className="page-item">
-                    <a
+                    <button
                         className="page-link rounded-circle"
                         href=""
                         aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span className="sr-only">Next</span>
-                    </a>
+                    </button>
                 </li>
             </ul>
         </nav>
