@@ -19,24 +19,31 @@ class App extends Component {
 
   }
   async componentDidMount() {
+    let pageNumber = this.state.pageNumber
 
-    let peopleData = await axios.get(`https://swapi.dev/api/people/`)
+    let peopleData = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`)
     this.handleRequests(peopleData)
   }
 
-  async componentDidUpdate() {
+  componentDidUpdate() {
     let pageNumber = this.state.pageNumber
-    let peopleData = await axios.get(`https://swapi.dev/api/people/`)
+    // let peopleData = await axios.get(`https://swapi.dev/api/people/`)
 
-    if (!pageNumber) {
-      console.log("ok1")
-      this.handleRequests(peopleData)
+    // if (!pageNumber) {
+    //   console.log("ok1")
+    //   this.handleRequests(peopleData)
 
+    // } else {
+    //   console.log('ok2')
+    //   this.handleRequests(peopleData)
+
+    // }
+    if (pageNumber) {
+      console.log('not change')
     } else {
-      console.log('ok2')
-      this.handleRequests(peopleData)
-
+      console.log('change')
     }
+    // console.log(pageNumber)
   }
 
   handleChange = (e) => {
@@ -56,23 +63,28 @@ class App extends Component {
 
     console.log(request)
     try {
-      request.data.results.map(async characterData => {
-        console.log(characterData)
-        const characterHomeWorld = await axios.get(characterData.homeworld)
-        const characterSpecies = await axios.get(characterData.species)
-        let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
-        const peopleState = this.state.people
-        peopleState.push({
-          people: characterData,
-          homeworld: characterHomeWorld.data.name,
-          species: isHuman,
+      if (pageNumber) {
+
+        request.data.results.map(async characterData => {
+          console.log(characterData)
+          const characterHomeWorld = await axios.get(characterData.homeworld)
+          const characterSpecies = await axios.get(characterData.species)
+          let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
+          const peopleState = this.state.people
+          peopleState.push({
+            people: characterData,
+            homeworld: characterHomeWorld.data.name,
+            species: isHuman,
+          })
+          this.setState({
+            people: peopleState,
+            count: request.data.count
+          })
         })
-        this.setState({
-          people: peopleState,
-          count: request.data.count
-        })
-      })
-      console.log('nope')
+      } else {
+
+        console.log('nope')
+      }
 
     }
     catch (error) {
