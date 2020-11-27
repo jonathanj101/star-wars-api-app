@@ -8,3 +8,12 @@ body {
 a {
   cursor: pointer;
 }
+
+.active {
+  background-color: darkblue;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
