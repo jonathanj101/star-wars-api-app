@@ -4,7 +4,6 @@ import { Table } from 'react-bootstrap'
 
 
 const TableData = (props) => {
-
     const peopleState = props.peopleData
     const peopleData = peopleState.map((characters, num) => {
         return (
