@@ -1,11 +1,15 @@
 import React from 'react'
 import { Table } from 'react-bootstrap'
+// import Loading from './LoadingComponent'
+
 
 const TableData = (props) => {
-    const peopleState = props.passingData
-    const looping = peopleState.map((characters, num) => {
+
+    const peopleState = props.peopleData
+    const peopleData = peopleState.map((characters, num) => {
         return (
             <tr key={num} >
+                <td>{num + 1}</td>
                 <td>{characters.people.name}</td>
                 <td>{characters.people.birth_year}</td>
                 <td>{characters.people.height}</td>
@@ -19,13 +23,14 @@ const TableData = (props) => {
     return (
         <div>
             <Table
-                className='main-table text-light text-center w-75 mx-auto'
+                className='main-table text-light text-center w-75 mb-5 mx-auto'
                 striped
                 bordered
                 hover
                 variant="dark"  >
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>Name</th>
                         <th>Birth Date</th>
                         <th>Height</th>
@@ -35,7 +40,7 @@ const TableData = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {looping}
+                    {peopleData}
                 </tbody>
             </Table>
         </div>
