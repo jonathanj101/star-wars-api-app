@@ -23,18 +23,19 @@ export const Pagination = (props) => {
                 </li>
                 {array.map(number => {
                     return (
-                        // <li
-                        //     className='page-item'
-                        //     key={number}>
-                        <button
-                            className='page-link rounded-circle'
-                            name={number}
-                            // href={`https://swapi.dev/api/people/?page=${number}`}
-                            onClick={handleChange}
-                        >
-                            {number}
-                        </button>
-                        // </li>
+                        <li
+                            className='page-item'
+                            key={number}>
+                            <button
+                                key={number}
+                                className='page-link rounded-circle'
+                                value={number}
+                                // href={`https://swapi.dev/api/people/?page=${number}`}
+                                onClick={handleChange}
+                            >
+                                {number}
+                            </button>
+                        </li>
                     )
                 })}
                 <li className="page-item">
