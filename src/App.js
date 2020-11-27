@@ -6,8 +6,6 @@ import Search from './components/Search'
 import Pagination from './components/Pagination'
 import Loading from './components/LoadingComponent'
 
-
-
 class App extends Component {
   constructor() {
     super();
@@ -30,25 +28,22 @@ class App extends Component {
   async componentDidUpdate(prevProps, prevState) {
     let pageNumber = this.state.pageNumber
     let textState = this.state.text
-    console.log(this.state.loading, prevState.loading)
     if (this.state.pageNumber !== prevState.pageNumber) {
       this.setState({
         people: [],
         loading: false
       })
       let peopleData = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`)
-      console.log(peopleData)
       this.handleRequests(peopleData)
-    } else if (this.state.text !== prevState.text) {
+    }
+    else if (this.state.text !== prevState.text) {
+      let peopleData = await axios.get(`https://swapi.dev/api/people/?search=${textState}`)
       this.setState({
         people: [],
         loading: false,
       })
-      let peopleData = await axios.get(`https://swapi.dev/api/people/?search=${textState}`)
-      console.log(peopleData)
       this.handleRequests(peopleData)
     }
-
   }
 
   handleChange = (e) => {
@@ -59,7 +54,6 @@ class App extends Component {
   }
 
   searchCharacter = (text) => {
-    console.log(text)
     this.setState({
       text: text
     })
