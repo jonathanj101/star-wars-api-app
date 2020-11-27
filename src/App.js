@@ -4,6 +4,8 @@ import './App.css';
 import TableData from './components/TableOfData'
 import Search from './components/Search'
 import Pagination from './components/Pagination'
+import Loading from './components/LoadingComponent'
+
 
 
 class App extends Component {
@@ -12,96 +14,98 @@ class App extends Component {
     this.state = {
       people: [],
       peopleCount: '',
-      pageNumber: '1'
+      pageNumber: '1',
+      loading: false,
+      text: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleRequests = this.handleRequests.bind(this)
-
+    this.searchCharacter = this.searchCharacter.bind(this)
   }
   async componentDidMount() {
-    let pageNumber = this.state.pageNumber
-
-    let peopleData = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`)
+    let peopleData = await axios.get(`https://swapi.dev/api/people/`)
     this.handleRequests(peopleData)
   }
 
-  componentDidUpdate() {
+  async componentDidUpdate(prevProps, prevState) {
     let pageNumber = this.state.pageNumber
-    // let peopleData = await axios.get(`https://swapi.dev/api/people/`)
-
-    // if (!pageNumber) {
-    //   console.log("ok1")
-    //   this.handleRequests(peopleData)
-
-    // } else {
-    //   console.log('ok2')
-    //   this.handleRequests(peopleData)
-
-    // }
-    if (pageNumber) {
-      console.log('not change')
-    } else {
-      console.log('change')
+    let textState = this.state.text
+    console.log(this.state.loading, prevState.loading)
+    if (this.state.pageNumber !== prevState.pageNumber) {
+      this.setState({
+        people: [],
+        loading: false
+      })
+      let peopleData = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`)
+      console.log(peopleData)
+      this.handleRequests(peopleData)
+    } else if (this.state.text !== prevState.text) {
+      this.setState({
+        people: [],
+        loading: false,
+      })
+      let peopleData = await axios.get(`https://swapi.dev/api/people/?search=${textState}`)
+      console.log(peopleData)
+      this.handleRequests(peopleData)
     }
-    // console.log(pageNumber)
+
   }
 
   handleChange = (e) => {
-    const { name } = e.target
+    const { value } = e.target
     this.setState({
-      pageNumber: name
+      pageNumber: value
+    })
+  }
+
+  searchCharacter = (text) => {
+    console.log(text)
+    this.setState({
+      text: text
     })
   }
 
   handleRequests = async (request) => {
-    let pageNumber = this.state.pageNumber
-
-    console.log(pageNumber)
-
-    // let request = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`)
-    // let request = await axios.get(`https://swapi.dev/api/people/`)
-
-    console.log(request)
     try {
-      if (pageNumber) {
-
-        request.data.results.map(async characterData => {
-          console.log(characterData)
-          const characterHomeWorld = await axios.get(characterData.homeworld)
-          const characterSpecies = await axios.get(characterData.species)
-          let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
-          const peopleState = this.state.people
-          peopleState.push({
-            people: characterData,
-            homeworld: characterHomeWorld.data.name,
-            species: isHuman,
-          })
-          this.setState({
-            people: peopleState,
-            count: request.data.count
-          })
+      request.data.results.map(async characterData => {
+        const characterHomeWorld = await axios.get(characterData.homeworld)
+        const characterSpecies = await axios.get(characterData.species)
+        let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
+        const peopleState = this.state.people
+        peopleState.push({
+          people: characterData,
+          homeworld: characterHomeWorld.data.name,
+          species: isHuman,
         })
-      } else {
-
-        console.log('nope')
-      }
-
+        this.setState({
+          loading: true,
+          people: peopleState,
+          peopleCount: request.data.count
+        })
+      })
     }
     catch (error) {
       console.log(error)
     }
-
   }
 
   render() {
+    const isLoading = this.state.loading
     return (
       <div className="App">
-        <Search />
-        <TableData
-          passingData={this.state.people} />
+        <Search
+          searchCharacter={this.searchCharacter} />
+        {!isLoading
+          ?
+          <Loading />
+          :
+          <TableData
+            peopleData={this.state.people}
+            loading={this.state.loading} />
+        }
         <Pagination
           pageNumber={this.state.pageNumber}
-          count={this.state.count}
+          count={this.state.peopleCount}
           handleChange={this.handleChange} />
       </div>
     );
