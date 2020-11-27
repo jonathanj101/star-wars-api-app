@@ -2,9 +2,7 @@ import React from 'react'
 
 export const Pagination = (props) => {
     const { count, handleChange } = props
-
     let array = []
-
     for (let i = 1; i <= Math.ceil(count / 10); i++) {
         array.push(i)
     }
@@ -15,7 +13,6 @@ export const Pagination = (props) => {
                 <li className="page-item">
                     <button
                         className="page-link rounded-circle "
-                        href=""
                         aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span className="sr-only">Previous</span>
@@ -30,9 +27,7 @@ export const Pagination = (props) => {
                                 key={number}
                                 className='page-link rounded-circle'
                                 value={number}
-                                // href={`https://swapi.dev/api/people/?page=${number}`}
-                                onClick={handleChange}
-                            >
+                                onClick={handleChange}>
                                 {number}
                             </button>
                         </li>
