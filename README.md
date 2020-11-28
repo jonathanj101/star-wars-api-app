@@ -1,7 +1,7 @@
 # Star Wars Api App
 
 - Application to search Star Wars' characters
-- This project's front-end is built with React.js, JavaScript and using [Swapi.dev or Star Wars API](https://www.swapi.dev/)
+- This project's front-end is built with React.js, JavaScript and using [Swapi.dev or Star Wars API](https://swapi.dev/)
 
 # Instructions
 
