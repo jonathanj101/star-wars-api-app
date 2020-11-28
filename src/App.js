@@ -62,6 +62,9 @@ class App extends Component {
   handleRequests = async (request) => {
     try {
       request.data.results.map(async characterData => {
+        // const planetHTTPreplaced = characterData.homeworld.replace('http', 'https')
+        // const speciesHTTPreplaced = characterData.species.replace('http','https')
+        console.log(characterData.homeworld)
         const characterHomeWorld = await axios.get(characterData.homeworld)
         const characterSpecies = await axios.get(characterData.species)
         let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
