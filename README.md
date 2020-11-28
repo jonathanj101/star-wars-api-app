@@ -7,7 +7,7 @@
 
 - To search a character, simply type a character's name or a letter related to that character then click on "Search"
 
-[Want to your favotire character?](https://expenses-tracker-react.herokuapp.com/)
+[Want to your search your favorite character?](https://expenses-tracker-react.herokuapp.com/)
 
 ![](/image/preview.png)
 
