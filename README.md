@@ -9,7 +9,7 @@
 
 [Want to your search your favorite character?](https://expenses-tracker-react.herokuapp.com/)
 
-![](/image/preview.png)
+![](/src/image/preview.png)
 
 # Summary
 
