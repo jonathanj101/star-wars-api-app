@@ -7,8 +7,8 @@ import Pagination from './components/Pagination'
 import Loading from './components/LoadingComponent'
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       people: [],
       peopleCount: '',
