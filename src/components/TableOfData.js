@@ -13,7 +13,7 @@ const TableData = (props) => {
                 <td>{characters.people.birth_year}</td>
                 <td>{characters.people.height}</td>
                 <td>{characters.people.mass}</td>
-                <td>{characters.homeworld}</td>
+                <td>{characters.homeWorld}</td>
                 <td>{characters.species}</td>
             </tr>
         )

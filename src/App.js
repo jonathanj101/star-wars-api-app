@@ -29,19 +29,11 @@ class App extends Component {
     let pageNumber = this.state.pageNumber
     let textState = this.state.text
     if (this.state.pageNumber !== prevState.pageNumber) {
-      this.setState({
-        people: [],
-        loading: false
-      })
       let peopleData = await axios.get(`https://swapi.dev/api/people/?page=${pageNumber}`)
       this.handleRequests(peopleData)
     }
-    else if (this.state.text !== prevState.text) {
+    if (this.state.text !== prevState.text) {
       let peopleData = await axios.get(`https://swapi.dev/api/people/?search=${textState}`)
-      this.setState({
-        people: [],
-        loading: false,
-      })
       this.handleRequests(peopleData)
     }
   }
@@ -61,19 +53,21 @@ class App extends Component {
 
   handleRequests = async (request) => {
     try {
-      request.data.results.map(async characterData => {
+      const characters = Promise.all(request.data.results.map(async characterData => {
         const characterHomeWorld = await axios.get(characterData.homeworld)
         const characterSpecies = await axios.get(characterData.species)
-        let isHuman = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
-        const peopleState = this.state.people
-        peopleState.push({
+        let species = !characterSpecies.data.name ? characterData.species = 'Human' : characterData.species = characterSpecies.data.name
+        return {
           people: characterData,
-          homeworld: characterHomeWorld.data.name,
-          species: isHuman,
-        })
+          homeWorld: characterHomeWorld.data.name,
+          species: species,
+        }
+
+      }))
+      characters.then(starWarsCharacter => {
         this.setState({
           loading: true,
-          people: peopleState,
+          people: starWarsCharacter,
           peopleCount: request.data.count
         })
       })
