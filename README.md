@@ -17,4 +17,4 @@ This project has been one of those fun project that i have built so far.I really
 
 # Author
 
-**Jonathan Jimenez** - Full Stack Developer - [LinkedIn](https://www.linkedin.com/in/jonathan-jimenez101/) |
+**Jonathan Jimenez** - Full Stack Developer - [LinkedIn](https://www.linkedin.com/in/jonathan-jimenez101/) | [Website](https://jonathan-jimenez.herokuapp.com/)
